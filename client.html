@@ -7,14 +7,51 @@
 
 <body>
 
-  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="pixi.min.js"></script>
+    <script type="text/javascript">
+      //Create a Pixi Application
+      let app = new PIXI.Application({
+          width: 506,
+          height: 506,
+          antialiasing: true,
+          transparent: false,
+          resolution: 1
+      });
+      //Add the canvas that Pixi automatically created for you to the HTML document
+      document.body.appendChild(app.view);
+      app.renderer.view.style.border = "5px black";
+      app.renderer.backgroundColor = 0xB7C9F1;
+      app.renderer.view.style.position = "absolute"
+      app.renderer.view.style.width = window.innerWidth + "px";
+      app.renderer.view.style.height = window.innerHeight + "px";
+      app.renderer.view.style.display = "block";
+    </script>
+
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('http://localhost:8080');
 
+
+
     socket.on('newTweet', function(tweet){
+        var message = new PIXI.Text(tweet.text);
+        var w = Math.floor(Math.random() * (app.screen.width - 150));
+        var h = Math.floor  (Math.random() * (app.screen.height - 100));
+        console.log( "coord: " + w + "." + h );
+
+        message.position.set(h, w);
+        app.stage.addChild(message);
         console.log(tweet);
     })
   </script>
+
+
 </body>
 </html>
