@@ -42,6 +42,10 @@
 
     socket.on('newTweet', function(tweet){
         var message = new PIXI.Text(tweet.text);
+        message.interactive = true;
+        message.click = function() {
+            app.stage.removeChild(this);
+        };
         var w = Math.floor(Math.random() * (app.screen.width - 150));
         var h = Math.floor  (Math.random() * (app.screen.height - 100));
         console.log( "coord: " + w + "." + h );
@@ -50,6 +54,11 @@
         app.stage.addChild(message);
         console.log(tweet);
     })
+
+    function onButtonDown()
+{
+    this.destroy;
+}
   </script>
 
 
