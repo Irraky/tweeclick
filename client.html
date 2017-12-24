@@ -34,6 +34,12 @@
     }
     </style>
 
+<script type="text/javascript">
+var scoreText = new PIXI.Text('Score: 0');
+app.stage.addChild(scoreText);
+var score = 0;
+</script>
+
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('http://localhost:8080');
@@ -45,6 +51,8 @@
         message.interactive = true;
         message.click = function() {
             app.stage.removeChild(this);
+            score += 5;
+            scoreText.text = 'Score: ' + score;
         };
         var w = Math.floor(Math.random() * (app.screen.width - 150));
         var h = Math.floor  (Math.random() * (app.screen.height - 100));
