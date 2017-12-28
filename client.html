@@ -64,6 +64,7 @@
             wordWrapWidth: 200});
         message.interactive = true;
         message.click = function() {
+            message.interactive = false;
             score += 5;
             scoreText.text = 'Score: ' + score;
             this.style.fontWeight= 'bold';
