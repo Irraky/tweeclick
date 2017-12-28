@@ -18,6 +18,17 @@ npm install ini
 npm install node-tweet-stream
 ```
 
+Insert your twitter API keys in "serveur.js" (line 10-13):
+```
+var stream = new Twitter({
+	consumer_key: '<YOUR CONSUMER KEY HERE>',
+    consumer_secret: '<YOUR CONSUMER SECRET HERE>',
+    token: '<YOUR TOKEN HERE>',
+    token_secret: '<YOUR TOKEN SECRET HERE>'
+});
+```
+You can get API key by creating an app on twitter (https://apps.twitter.com/app/)
+
 ## Launch the application
 
 Launch the application with the command:
