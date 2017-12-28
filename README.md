@@ -36,7 +36,7 @@ Launch the application with the command:
 node serveur.js
 ```
 
-Then, open your browser and go to "http://locahost:8080"
+Then, open your browser and go to "http://localhost:8080"
 
 ## Setting Hashtag
 
