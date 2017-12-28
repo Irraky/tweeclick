@@ -75,7 +75,7 @@ var score = 0;
         var h = Math.floor  (Math.random() * (app.screen.height - 100));
         console.log( "coord: " + w + "." + h );
 
-        message.position.set(h, w);
+        message.position.set(w, h);
         app.stage.addChild(message);
         console.log(tweet);
     })
