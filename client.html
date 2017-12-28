@@ -16,7 +16,7 @@
 
     <script type="text/javascript" src="pixi.min.js"></script>
     <script type="text/javascript">
-
+      //Create a Pixi Application
       let app = new PIXI.Application({
           width: 1920,
           height: 1080,
@@ -24,7 +24,7 @@
           transparent: false,
           resolution: 1
       });
-
+      //Add the canvas that Pixi automatically created for you to the HTML document
       document.body.appendChild(app.view);
       app.renderer.view.style.border = "5px black";
       app.renderer.backgroundColor = 0xECF0F1;
@@ -36,54 +36,64 @@
 
 
 
-<script type="text/javascript">
-var scoreText = new PIXI.Text('Score: 0', {
-    fontWeight: 'bold',
-    fontSize: 26,
-    fontFamily: 'Open Sans',
-    fill: '#95A5A5',
-    align: 'center',
-    stroke: '#000000  ',
-    strokeThickness: 3
-});
-app.stage.addChild(scoreText);
-var score = 0;
-</script>
+    <script type="text/javascript">
+    var scoreText = new PIXI.Text('Score: 0', {
+        fontWeight: 'bold',
+        fontSize: 26,
+        fontFamily: 'Open Sans',
+        fill: '#95A5A5',
+        align: 'center',
+        stroke: '#000000  ',
+        strokeThickness: 3
+    });
+    app.stage.addChild(scoreText);
+    var score = 0;
+    </script>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
     var socket = io.connect('http://localhost:8080');
 
-    var style = new PIXI.TextStyle({
-    fontFamily: 'Open Sans',
-    fontSize: 12,
-    fontWeight: 'normal',
-    fill: '#000000',
-    wordWrap: true,
-    wordWrapWidth: 300
-    });
-
     socket.on('newTweet', function(tweet){
-        var message = new PIXI.Text(tweet.text, style);
+        var message = new PIXI.Text(tweet.text, {
+            fontFamily: 'Open Sans',
+            fontSize: 12,
+            fontWeight: 'normal',
+            fill: '#000000',
+            wordWrap: true,
+            wordWrapWidth: 200});
         message.interactive = true;
         message.click = function() {
-            app.stage.removeChild(this);
             score += 5;
             scoreText.text = 'Score: ' + score;
+            this.style.fontWeight= 'bold';
+            var anim = setInterval(function() {
+                if (message.style.fontSize > 40) {
+                    app.stage.removeChild(message);
+                    clearInterval(anim);
+                    delete message;
+                }
+                else if (message.style.fontSize > 30 ) {
+                    message.style.fill = '#FF0000';
+                }
+                else if (message.style.fontSize > 20 ) {
+                    message.style.fill = '#550000';
+                }
+                else if (message.style.fontSize > 10 ) {
+                    message.style.fill = '#200000';
+                }
+                    message.style.fontSize += 2;
+                    message.style.wordWrapWidth += 34;
+            }, 15);
         };
         var w = Math.floor(Math.random() * (app.screen.width - 150));
-        var h = Math.floor  (Math.random() * (app.screen.height - 100));
+        var h = Math.floor(Math.random() * (app.screen.height - 100));
         console.log( "coord: " + w + "." + h );
 
         message.position.set(w, h);
         app.stage.addChild(message);
         console.log(tweet);
-    })
-
-    function onButtonDown()
-{
-    this.destroy;
-}
+    });
   </script>
 
 
