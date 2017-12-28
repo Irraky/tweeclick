@@ -1,0 +1,20 @@
+{
+  "name": "tweeclick",
+  "version": "0.0.1",
+  "description": "A tweets stream and shoot application",
+  "main": "serveur.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/Irraky/tweeclick"
+  },
+  "dependencies": {
+    "socket.io": "2.0",
+	"ini": "*",
+	"node-tweet-stream": "*",
+},
+  "author": "Déborah Recoursé",
+  "license": "ISC"
+}
