@@ -3,39 +3,49 @@
 <head>
   <meta charset="utf-8">
   <title>Tweeclick</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <style type="text/css">
+  * {
+      margin: 0;
+      padding: 0;
+  }
+  </style>
 </head>
 
 <body>
 
     <script type="text/javascript" src="pixi.min.js"></script>
     <script type="text/javascript">
-      //Create a Pixi Application
+
       let app = new PIXI.Application({
-          width: 506,
-          height: 506,
+          width: 1920,
+          height: 1080,
           antialiasing: true,
           transparent: false,
           resolution: 1
       });
-      //Add the canvas that Pixi automatically created for you to the HTML document
+
       document.body.appendChild(app.view);
       app.renderer.view.style.border = "5px black";
-      app.renderer.backgroundColor = 0xB7C9F1;
+      app.renderer.backgroundColor = 0xECF0F1;
       app.renderer.view.style.position = "absolute"
       app.renderer.view.style.width = window.innerWidth + "px";
       app.renderer.view.style.height = window.innerHeight + "px";
       app.renderer.view.style.display = "block";
     </script>
 
-    <style type="text/css">
-    * {
-        margin: 0;
-        padding: 0;
-    }
-    </style>
+
 
 <script type="text/javascript">
-var scoreText = new PIXI.Text('Score: 0');
+var scoreText = new PIXI.Text('Score: 0', {
+    fontWeight: 'bold',
+    fontSize: 26,
+    fontFamily: 'Open Sans',
+    fill: '#95A5A5',
+    align: 'center',
+    stroke: '#000000  ',
+    strokeThickness: 3
+});
 app.stage.addChild(scoreText);
 var score = 0;
 </script>
@@ -44,10 +54,17 @@ var score = 0;
   <script>
     var socket = io.connect('http://localhost:8080');
 
-
+    var style = new PIXI.TextStyle({
+    fontFamily: 'Open Sans',
+    fontSize: 12,
+    fontWeight: 'normal',
+    fill: '#000000',
+    wordWrap: true,
+    wordWrapWidth: 300
+    });
 
     socket.on('newTweet', function(tweet){
-        var message = new PIXI.Text(tweet.text);
+        var message = new PIXI.Text(tweet.text, style);
         message.interactive = true;
         message.click = function() {
             app.stage.removeChild(this);
