@@ -57,6 +57,7 @@
             wordWrap: true,
             wordWrapWidth: 200});
         message.interactive = true;
+        message.anchor.set(0.3, 0.2);
         message.click = function() {
             message.interactive = false;
             score += 5;
