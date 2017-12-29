@@ -51,7 +51,6 @@ else
 }
 
 stream.on('tweet', function (data) {
-	  console.log('tweetReceived', data.text);
 	  if (data.coordinate !== null)
 	  {
 		  var tweet = {"name": data.user.screen_name, "text": data.text};
