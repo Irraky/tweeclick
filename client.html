@@ -15,8 +15,9 @@
 <body>
 
     <script type="text/javascript" src="pixi.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
-      //Create a Pixi Application
+
       let app = new PIXI.Application({
           width: 1920,
           height: 1080,
@@ -24,7 +25,7 @@
           transparent: false,
           resolution: 1
       });
-      //Add the canvas that Pixi automatically created for you to the HTML document
+
       document.body.appendChild(app.view);
       app.renderer.view.style.border = "5px black";
       app.renderer.backgroundColor = 0xECF0F1;
@@ -32,11 +33,7 @@
       app.renderer.view.style.width = window.innerWidth + "px";
       app.renderer.view.style.height = window.innerHeight + "px";
       app.renderer.view.style.display = "block";
-    </script>
 
-
-
-    <script type="text/javascript">
     var scoreText = new PIXI.Text('Score: 0', {
         fontWeight: 'bold',
         fontSize: 26,
@@ -48,10 +45,7 @@
     });
     app.stage.addChild(scoreText);
     var score = 0;
-    </script>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
     var socket = io.connect('http://localhost:8080');
 
     socket.on('newTweet', function(tweet){
