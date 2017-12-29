@@ -35,6 +35,7 @@ Then, open your browser and go to "http://localhost:8080"
 
 ## Setting Hashtag
 
+A default hashtag is used.
 To set the hashtag, open "config.ini".
 Replace the value next to the key "hashtag=" by the one that you want to follow.
 Example:
