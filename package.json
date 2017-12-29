@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "socket.io": "2.0",
-	"ini": "*",
-	"node-tweet-stream": "*",
-},
-  "author": "Déborah Recoursé",
+    "ini": "*",
+    "node-tweet-stream": "*"
+  },
+  "author": "Deborah Recourse",
   "license": "ISC"
 }
