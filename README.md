@@ -11,12 +11,7 @@ git clone https://github.com/Irraky/tweeclick.git tweeclick
 cd tweeclick
 ```
 
-Install the dependencies:
-```
-npm install socket.io
-npm install ini
-npm install node-tweet-stream
-```
+Install the dependencies with the command "npm install".
 
 Insert your twitter API keys in "serveur.js" (line 10-13):
 ```
