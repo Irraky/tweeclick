@@ -33,7 +33,11 @@ var io = require('socket.io').listen(server);
 server.listen(8080);
 
 io.sockets.on('connection', function (socket) {
-	console.log('An user signed in!');
+	console.log('Welcome!');
+    console.log('To access the game, go to http://localhost:8080');
+    console.log('If you don\'t set the hashtag, the default will be used');
+    console.log('Actual hashtag: ' + config.hashtag);
+    console.log('Enjoy ~');
 });
 
 
