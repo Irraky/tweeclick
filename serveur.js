@@ -1,3 +1,4 @@
+const settings = require('standard-settings').getSettings();
 var fs = require('fs');
 var util = require('util');
 var ini = require('ini');
@@ -30,24 +31,24 @@ var server = http.createServer(function(req, res) {
 });
 
 var io = require('socket.io').listen(server);
-server.listen(8080);
+server.listen(settings.server.port);
 
 io.sockets.on('connection', function (socket) {
 	console.log('Welcome!');
-    console.log('To access the game, go to http://localhost:8080');
+    console.log('To access the game, go to http://localhost:' + settings.server.port);
     console.log('If you don\'t set the hashtag, the default will be used');
-    console.log('Actual hashtag: ' + config.hashtag);
+    console.log('Actual hashtag: ' + settings.follow.hashtag);
     console.log('Enjoy ~');
 });
 
 
-if (config.hashtag && config.hashtag !== null)
+if (settings.follow.hashtag && settings.follow.hashtag !== null)
 {
-	stream.track('#' + config.hashtag);
+	stream.track('#' + settings.follow.hashtag);
 }
 else
 {
-	stream.track('#noël');
+	stream.track('#macron');
 }
 
 stream.on('tweet', function (data) {

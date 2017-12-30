@@ -36,11 +36,11 @@ Then, open your browser and go to "http://localhost:8080"
 ## Setting Hashtag
 
 A default hashtag is used.
-To set the hashtag, open "config.ini".
-Replace the value next to the key "hashtag=" by the one that you want to follow.
+To set the hashtag, open "settings.json".
+Replace the value next to the key "hashtag" by the one that you want to follow.
 Example:
 ```
-hashtag = 2018
+"hashtag": "2018"
 ```
 
 TIP: you will need to restart the app to update the hashtag.
