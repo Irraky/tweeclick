@@ -19,6 +19,7 @@ var server = http.createServer(function (req, res) {
   }
   if (fs.existsSync(page)) {
     fs.readFile(page, 'utf-8', function (error, content) {
+      if (error) throw error
       res.writeHead(200, {'Content-Type': 'text/html'})
       res.end(content)
     })
