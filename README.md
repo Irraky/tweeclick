@@ -28,7 +28,11 @@ You can get API key by creating an app on twitter (https://apps.twitter.com/app/
 
 Launch the application with the command:
 ```
-node serveur.js
+npm start
+```
+or
+```
+yarn start
 ```
 
 Then, open your browser and go to "http://localhost:8080"
