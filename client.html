@@ -18,6 +18,7 @@
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
 
+    function createCanvas() {
       let app = new PIXI.Application({
           width: 1920,
           height: 1080,
@@ -33,65 +34,92 @@
       app.renderer.view.style.width = window.innerWidth + "px";
       app.renderer.view.style.height = window.innerHeight + "px";
       app.renderer.view.style.display = "block";
+      return (app);
+  }
 
-    var scoreText = new PIXI.Text('Score: 0', {
-        fontWeight: 'bold',
-        fontSize: 26,
-        fontFamily: 'Open Sans',
-        fill: '#95A5A5',
-        align: 'center',
-        stroke: '#000000  ',
-        strokeThickness: 3
-    });
-    app.stage.addChild(scoreText);
-    var score = 0;
+  function addScoreToCanvas() {
+      scoreText = new PIXI.Text('Score: 0', {
+          fontWeight: 'bold',
+          fontSize: 26,
+          fontFamily: 'Open Sans',
+          fill: '#95A5A5',
+          align: 'center',
+          stroke: '#000000  ',
+          strokeThickness: 3
+      });
+      app.stage.addChild(scoreText);
+  }
 
-    var socket = io.connect('http://localhost:8080');
+  function removeTweet (message) {
+      app.stage.removeChild(message);
+      delete message;
+  }
 
-    socket.on('newTweet', function(tweet){
-        var message = new PIXI.Text(tweet.text, {
-            fontFamily: 'Open Sans',
-            fontSize: 12,
-            fontWeight: 'normal',
-            fill: '#000000',
-            wordWrap: true,
-            wordWrapWidth: 200});
-        message.interactive = true;
-        message.anchor.set(0.3, 0.2);
-        message.click = function() {
-            message.interactive = false;
-            score += 5;
-            scoreText.text = 'Score: ' + score;
-            this.style.fontWeight= 'bold';
-            var anim = setInterval(function() {
-                if (message.style.fontSize > 40) {
-                    app.stage.removeChild(message);
-                    clearInterval(anim);
-                    delete message;
-                }
-                else if (message.style.fontSize > 30 ) {
-                    message.style.fill = '#FF0000';
-                }
-                else if (message.style.fontSize > 20 ) {
-                    message.style.fill = '#550000';
-                }
-                else if (message.style.fontSize > 10 ) {
-                    message.style.fill = '#200000';
-                }
-                    message.style.fontSize += 2;
-                    message.style.wordWrapWidth += 34;
-            }, 15);
-        };
-        var w = Math.floor(Math.random() * (app.screen.width - 150));
-        var h = Math.floor(Math.random() * (app.screen.height - 100));
-        console.log( "coord: " + w + "." + h );
+  function explode(message) {
+      message.interactive = false;
+      message.style.fontWeight= 'bold';
+      var anim = setInterval(function() {
+          if (message.style.fontSize > 40) {
+              removeTweet(message);
+              clearInterval(anim);
+          }
+          else if (message.style.fontSize > 30 ) {
+              message.style.fill = '#FF0000';
+          }
+          else if (message.style.fontSize > 20 ) {
+              message.style.fill = '#550000';
+          }
+          else if (message.style.fontSize > 10 ) {
+              message.style.fill = '#200000';
+          }
+              message.style.fontSize += 2;
+              message.style.wordWrapWidth += 34;
+      }, 15);
+  }
 
-        message.position.set(w, h);
-        app.stage.addChild(message);
-        console.log(tweet);
-    });
+  function addToScore () {
+      score += 5;
+      scoreText.text = 'Score: ' + score;
+  }
+
+  function addTweet(tweet) {
+      var message = new PIXI.Text(tweet.text, {
+          fontFamily: 'Open Sans',
+          fontSize: 12,
+          fontWeight: 'normal',
+          fill: '#000000',
+          wordWrap: true,
+          wordWrapWidth: 200});
+      message.interactive = true;
+      message.anchor.set(0.3, 0.2);
+      message.click = function() {
+          explode(this);
+          addToScore();
+      };
+      var w = Math.floor(Math.random() * (app.screen.width - 150));
+      var h = Math.floor(Math.random() * (app.screen.height - 100));
+      console.log( "coord: " + w + "." + h );
+
+      message.position.set(w, h);
+      app.stage.addChild(message);
+      console.log(tweet);
+  }
+
+  function initSocket() {
+          var socket = io.connect('http://localhost:8080');
+
+          socket.on('newTweet', function(tweet){
+              addTweet(tweet);
+          });
+  }
+
+
+  var scoreText;
+  var score = 0;
+  var app = createCanvas();
+  addScoreToCanvas();
+  initSocket();
+
   </script>
-
-
 </body>
 </html>
