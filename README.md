@@ -13,14 +13,14 @@ cd tweeclick
 
 Install the dependencies with the command "npm install".
 
-Insert your twitter API keys in "serveur.js" (line 10-13):
+Insert your twitter API keys in "settings.default.json":
 ```
-var stream = new Twitter({
-	consumer_key: '<YOUR CONSUMER KEY HERE>',
-    consumer_secret: '<YOUR CONSUMER SECRET HERE>',
-    token: '<YOUR TOKEN HERE>',
-    token_secret: '<YOUR TOKEN SECRET HERE>'
-});
+	"data": {
+		"consumerKey": "",
+		"consumerSecret": "",
+		"token": "",
+		"tokenSecret": ""
+	}
 ```
 You can get API key by creating an app on twitter (https://apps.twitter.com/app/)
 

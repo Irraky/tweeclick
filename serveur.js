@@ -1,17 +1,16 @@
 const settings = require('standard-settings').getSettings();
 var fs = require('fs');
 var util = require('util');
-var ini = require('ini');
+
 var http = require('http');
-var file = fs.readFileSync('./config.ini', 'utf-8');
-var config = ini.parse(file);
+
 
 var Twitter = require('node-tweet-stream');
 var stream = new Twitter({
-    consumer_key: '',
-    consumer_secret: '',
-    token: '',
-    token_secret: ''
+    consumer_key: settings.data.consumerKey,
+    consumer_secret: settings.data.consumerSecret,
+    token: settings.data.token,
+    token_secret: settings.data.tokenSecret
 });
 
 var server = http.createServer(function(req, res) {
